@@ -103,6 +103,9 @@ INSTALL::
     cd Desktop/NODE/NODE_ANDREW/PROJECTS/TODO_APP
     npm install mongodb@2.2.5 --save
 
+// ==================== //
+// === MONGOOSE ORM === //
+// ==================== //
 
 
 
