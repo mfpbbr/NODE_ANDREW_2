@@ -146,7 +146,10 @@ heroku config
 MONGODB_URI: mongodb://heroku_h29cgvhq:59d5glo8lin2omnq0buvofk5cr@ds125628.mlab.com:25628/heroku_h29cgvhq
 
 git push heroku master
-https://radiant-dawn-43338.herokuapp.com/ #====> URL deployed to Heroku
+https://guarded-journey-17798.herokuapp.com/ #====> URL deployed to Heroku
+
+heroku logs
+
 *** OR ***
 heroku open
 

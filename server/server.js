@@ -101,7 +101,32 @@ app.get('/todos/:id', (request, response) => {
     }).catch((e) => {
       response.status(400).send();
     });
+    // =============== //
+});
 
+
+// ======================== //
+// ===   DELETE / todo  === //
+// ===      ROUTES      === //
+// ======================== //
+app.delete('/todos/:id', (request, response) => {
+    var id = request.params.id;
+    // === TEST ID === //
+    if(!ObjectID.isValid(id)){
+      console.log('\n **** ID NOT VALID***** \n');
+      return response.status(404).send();
+    }
+    // === CODE ACTION === //
+    Todo.findByIdAndRemove(id).then((todo) => {
+      if (!todo) {
+        return response.status(404).send();
+      }
+      console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(todo, undefined, 2)}`);
+      response.send({todo});
+    }).catch((e) => {
+      response.status(400).send();
+    });
+    // =============== //
 });
 
 /*
@@ -109,15 +134,7 @@ app.get('/todos/:id', (request, response) => {
 // ===   UPDATE / todo  === //
 // ===      ROUTES      === //
 // ======================== //
-app.update('/todo', (request, response) => {
-    console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
-});
-
-// ======================== //
-// ===   DELETE / todo  === //
-// ===      ROUTES      === //
-// ======================== //
-app.delete('/todo', (request, response) => {
+app.update('/todos/:id', (request, response) => {
     console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
 });
 */
