@@ -106,8 +106,15 @@ INSTALL::
 // ==================== //
 // === MONGOOSE ORM === //
 // ==================== //
+cd Desktop/NODE/NODE_ANDREW/PROJECTS/TODO_APP
+npm install mongoose@4.5.9 --save
 
-
+// ==================== //
+// === EXPRESS NPM  === //
+// ==================== //
+cd Desktop/NODE/NODE_ANDREW/PROJECTS/TODO_APP
+npm install express@4.14.0 --save
+npm install body-parser@1.15.2 --save
 
 // ===================== //
 // ===================== //
