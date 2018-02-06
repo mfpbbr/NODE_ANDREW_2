@@ -17,7 +17,9 @@ const todos = [{
   text: 'FIRST TEST TO DO'
 },{
   _id: new ObjectID(),
-  text: 'SECOND TEST TO DO'
+  text: 'SECOND TEST TO DO',
+  completed: true,
+  completedAt: 333
 }];
 
 beforeEach((done) => {
@@ -99,8 +101,6 @@ describe('POSTS / todos', () => {
             // ************* //
             // ************* //
       });
-
-
 
 
       // ==================== //
@@ -187,5 +187,55 @@ describe('POSTS / todos', () => {
                         // ************* //
                         // ************* //
                   });
+
+
+
+                  // ==================== //
+                  // ===== DESCRIBE ===== //
+                  // ==================== //
+                      describe('PATCH / todos/:id', () => {
+                          // ************** //
+                          // ***   1º   *** //
+                          // ************** //
+                              it('Should UPDATE todos', (done) => {
+                                  var hexId = todos[0]._id.toHexString();
+                                  var text = 'THIS SHOULD BE THE NEW TEXT'
+                                  request(app)
+                                  .patch(`/todos/${hexId}`)
+                                  .send({
+                                    completed: true,
+                                    text
+                                  })
+                                  .expect(200)
+                                  .expect((res) => {
+                                    expect(res.body.todo.text).toBe(text);
+                                    expect(res.body.todo.completed).toBe(true);
+                                    expect(res.body.todo.completedAt).toBeA('number');
+                                  })
+                                  .end(done);
+                              });
+                          // ************** //
+                          // ***   2º   *** //
+                          // ************** //
+                              it('Should CLEAR UPDATE WHEN todos NOT COMPLETED', (done) => {
+                                var hexId = todos[1]._id.toHexString();
+                                var text = 'THIS SHOULD BE THE NEW TEXT +++++++'
+                                request(app)
+                                .patch(`/todos/${hexId}`)
+                                .send({
+                                  completed: false,
+                                  text
+                                })
+                                .expect(200)
+                                .expect((res) => {
+                                  expect(res.body.todo.text).toBe(text);
+                                  expect(res.body.todo.completed).toBe(false);
+                                  expect(res.body.todo.completedAt).toNotExist();
+                                })
+                                .end(done);
+                              });
+                          // ************* //
+                          // ************* //
+                        });
 // ====================== //
 // ====================== //
