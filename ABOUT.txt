@@ -116,5 +116,22 @@ cd Desktop/NODE/NODE_ANDREW/PROJECTS/TODO_APP
 npm install express@4.14.0 --save
 npm install body-parser@1.15.2 --save
 
+// ==================== //
+// ===  TESTS NPM   === //
+// ==================== //
+cd Desktop/NODE/NODE_ANDREW/PROJECTS/TODO_APP
+npm install mocha@3.0.2 --save-dev
+npm install expect@1.20.2 --save-dev
+npm install supertest@2.0.0 --save-dev
+npm install nodemon@1.10.2 --save-dev
+
+//============//
+//== SERVER ==//
+//============//
+nodemon --exec 'npm test'
+npm run test-watch
+
+nodemon server.js
+
 // ===================== //
 // ===================== //

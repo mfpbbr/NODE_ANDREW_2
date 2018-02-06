@@ -4,6 +4,7 @@
 // =====    APP    ===== //
 // ===================== //
 //=== CALL EXAMPLES::
+// cd Desktop/NODE/NODE_ANDREW/PROJECTS/TODO_APP
 // node server/server.js
 
 // ==================== //
@@ -30,10 +31,15 @@ var app = express();
   //***********//
   app.use(bodyParser.json());//===== ALL RESPONSE AS JSON
 
-// ==================== //
-// ===    EXPRESS   === //
-// ===    ROUTES    === //
-// ==================== //
+  // ================================= //
+  // =======      EXPRESS     ======== //
+  // =======      ROUTES      ======== //
+  // ================================= //
+
+// ======================== //
+// ===    POST / TODOs  === //
+// ===      ROUTES      === //
+// ======================== //
 app.post('/todos', (request, response) => {
     console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
     var newTodo = new Todo({
@@ -48,11 +54,50 @@ app.post('/todos', (request, response) => {
     });
 });
 
+/*
+// ======================== //
+// ===    GET / TODOs   === //
+// ===      ROUTES      === //
+// ======================== //
+app.get('/todos', (request, response) => {
+    console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
+});
+
+// ======================== //
+// ===    GET / todo    === //
+// ===      ROUTES      === //
+// ======================== //
+app.get('/todo', (request, response) => {
+    console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
+});
+
+// ======================== //
+// ===   UPDATE / todo  === //
+// ===      ROUTES      === //
+// ======================== //
+app.update('/todo', (request, response) => {
+    console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
+});
+
+// ======================== //
+// ===   DELETE / todo  === //
+// ===      ROUTES      === //
+// ======================== //
+app.delete('/todo', (request, response) => {
+    console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
+});
+*/
+
 // =================== //
 // == EXPRESS START == //
 // =================== //
   app.listen(3000, () => {
-    console.log('\n**** SARTED ON POPRT 3000 *****\n');
+    console.log('\n**** STARTED ON POPRT 3000 *****\n');
   });
+
+  // =================== //
+  // == EXPORT SERVER == //
+  // =================== //
+  module.exports = { app };
 // ===================== //
 // ===================== //
