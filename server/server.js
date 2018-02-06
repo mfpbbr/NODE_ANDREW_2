@@ -10,7 +10,7 @@
 // ==================== //
 // ===  VARIABLES   === //
 // ==================== //
-
+const _ = require('lodash');
 const express = require('express');
 const { ObjectID } = require('mongodb');
 const bodyParser = require('body-parser');
@@ -129,15 +129,37 @@ app.delete('/todos/:id', (request, response) => {
     // =============== //
 });
 
-/*
 // ======================== //
 // ===   UPDATE / todo  === //
 // ===      ROUTES      === //
 // ======================== //
-app.update('/todos/:id', (request, response) => {
-    console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
+app.patch('/todos/:id', (request, response) => {
+  var id = request.params.id;
+  vat body = _.pick(request.body, ['text', 'completed']);
+  // === TEST ID === //
+  if(!ObjectID.isValid(id)){
+    console.log('\n **** ID NOT VALID***** \n');
+    return response.status(404).send();
+  }
+  // === TEST COMPLETED ATTR === //
+  if(_.isBoolean(body.completed) && body.completed){
+    body.completedAt = new Date().getTime();
+  } else {
+    body.completed = false;
+    body.completedAt = null;
+  }
+  // === TEST UPDATE === //
+      Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
+        if (!todo) {
+          return response.status(404).send();
+        }
+        console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(todo, undefined, 2)}`);
+        response.send({todo});
+      }).catch((e) => {
+        response.status(400).send();
+      });
+  // =============== //
 });
-*/
 
 // =================== //
 // == EXPRESS START == //
