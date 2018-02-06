@@ -11,8 +11,16 @@ const { Todo } = require('./../models/todo');
 // ==================== //
 // ===== CALLBACK ===== //
 // ==================== //
+const todos = [{
+  text: 'FIRST TEST TO DO'
+},{
+  text: 'SECOND TEST TO DO'
+}];
+
 beforeEach((done) => {
-  Todo.remove({}).then(() => done())
+  Todo.remove({}).then(() => {
+    return Todo.insertMany(todos);
+  }).then(() => done());
 });
 
 // ==================== //
@@ -35,7 +43,7 @@ describe('POSTS / todos', () => {
                 if (err) {
                   return done(err);
                 }
-                Todo.find().then((todos) => {
+                Todo.find({text}).then((todos) => {
                   expect(todos.length).toBe(1);
                   expect(todos[0].text).toBe(text);
                   done();
@@ -58,7 +66,7 @@ describe('POSTS / todos', () => {
                 return done(err);
               }
               Todo.find().then((todos) => {
-                expect(todos.length).toBe(0);
+                expect(todos.length).toBe(2);
                 done();
               }).catch((e) => done(e));
           // ****************** //
@@ -68,5 +76,25 @@ describe('POSTS / todos', () => {
       // ************* //
 
     });
+
+
+// ==================== //
+// ===== DESCRIBE ===== //
+// ==================== //
+    describe('GET / todos', () => {
+
+          // ************** //
+          // ***   1º   *** //
+          // ************** //
+              it('Should get all todos', (done) => {
+                    request(app)
+                    .get('/todos')
+                    .expect(200)
+                    .expect((res) => {expect(res.body.todos.length).toBe(2);})
+                    .end(done);
+                });
+            // ************* //
+            // ************* //
+      });
 // ====================== //
 // ====================== //

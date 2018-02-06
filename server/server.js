@@ -54,15 +54,23 @@ app.post('/todos', (request, response) => {
     });
 });
 
-/*
+
 // ======================== //
 // ===    GET / TODOs   === //
 // ===      ROUTES      === //
 // ======================== //
 app.get('/todos', (request, response) => {
     console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
+    Todo.find().then((todos) => {
+      response.send({todos})
+      console.log('\n**** GET ALL FROM DB =D *****\n'+`${todos}`);
+    }, (e) => {
+      response.status(400).send(e);
+      console.log('\n**** UNABLE TO GET ALL FROM DB *****\n'+`${e}`);
+    });
 });
 
+/*
 // ======================== //
 // ===    GET / todo    === //
 // ===      ROUTES      === //
