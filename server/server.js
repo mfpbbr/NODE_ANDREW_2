@@ -10,12 +10,15 @@
 // ==================== //
 // ===  VARIABLES   === //
 // ==================== //
+
 const express = require('express');
 const { ObjectID } = require('mongodb');
 const bodyParser = require('body-parser');
 var { mongoose } = require('./db/mongoose.js');
 var { User } = require('./models/user.js');
 var { Todo } = require('./models/todo.js');
+const port = process.env.PORT || 3000;
+
 
 // ==================== //
 // ===    EXPRESS   === //
@@ -122,9 +125,9 @@ app.delete('/todo', (request, response) => {
 // =================== //
 // == EXPRESS START == //
 // =================== //
-  app.listen(3000, () => {
-    console.log('\n**** STARTED ON POPRT 3000 *****\n');
-  });
+app.listen(port, () => {
+  console.log(`\n***** CONSOLE UP AND RUNNING ON ${port} *****\n`)
+});
 
   // =================== //
   // == EXPORT SERVER == //

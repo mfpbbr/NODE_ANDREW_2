@@ -133,5 +133,22 @@ npm run test-watch
 
 nodemon server.js
 
+//============//
+//== HEROKU ==//
+//============//
+mfpbbr@gmail.com
+goHERO77
+
+cd Desktop/NODE/NODE_ANDREW/SAMPLES/EXPRESS_SAMPLE
+heroku create
+heroku addons:create mongolab:sandbox
+heroku config
+MONGODB_URI: mongodb://heroku_h29cgvhq:59d5glo8lin2omnq0buvofk5cr@ds125628.mlab.com:25628/heroku_h29cgvhq
+
+git push heroku master
+https://radiant-dawn-43338.herokuapp.com/ #====> URL deployed to Heroku
+*** OR ***
+heroku open
+
 // ===================== //
 // ===================== //
