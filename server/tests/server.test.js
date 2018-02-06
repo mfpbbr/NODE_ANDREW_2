@@ -7,13 +7,16 @@ const expect = require('expect');
 const request = require('supertest');
 const { app } = require('./../server');
 const { Todo } = require('./../models/todo');
+const { ObjectID } = require('mongodb');
 
 // ==================== //
 // ===== CALLBACK ===== //
 // ==================== //
 const todos = [{
+  _id: new ObjectID(),
   text: 'FIRST TEST TO DO'
 },{
+  _id: new ObjectID(),
   text: 'SECOND TEST TO DO'
 }];
 
@@ -96,5 +99,47 @@ describe('POSTS / todos', () => {
             // ************* //
             // ************* //
       });
+
+
+
+
+      // ==================== //
+      // ===== DESCRIBE ===== //
+      // ==================== //
+          describe('GET / todos/:id', () => {
+
+                // ************** //
+                // ***   1º   *** //
+                // ************** //
+                    it('Should get ONE todos', (done) => {
+                          request(app)
+                          .get(`/todos/${todos[0]._id.toHexString()}`)
+                          .expect(200)
+                          .expect((res) => {expect(res.body.todo.text).toBe(todos[0].text);})
+                          .end(done);
+                      });
+                  // ************** //
+                  // ***   2º   *** //
+                  // ************** //
+                      it('Should return 404 if Todo Not Found', (done) => {
+                        var hexId = new ObjectID().toHexString()
+                          request(app)
+                          .get(`/todos/${hexId}`)
+                          .expect(404)
+                          .end(done);
+                      });
+                    // ************** //
+                    // ***   3º   *** //
+                    // ************** //
+                        it('Should return 404 if No-OBJ-IDS', (done) => {
+                            request(app)
+                            .get(`/todos/123abc`)
+                            .expect(404)
+                            .end(done);
+                        });
+                  // ************* //
+                  // ************* //
+            });
+
 // ====================== //
 // ====================== //

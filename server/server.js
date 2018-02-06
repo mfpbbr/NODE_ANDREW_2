@@ -11,6 +11,7 @@
 // ===  VARIABLES   === //
 // ==================== //
 const express = require('express');
+const { ObjectID } = require('mongodb');
 const bodyParser = require('body-parser');
 var { mongoose } = require('./db/mongoose.js');
 var { User } = require('./models/user.js');
@@ -30,6 +31,11 @@ var app = express();
   //**** 1 ****//
   //***********//
   app.use(bodyParser.json());//===== ALL RESPONSE AS JSON
+
+// ================== //
+// ===  METHODS   === //
+// ================== //
+
 
   // ================================= //
   // =======      EXPRESS     ======== //
@@ -70,15 +76,32 @@ app.get('/todos', (request, response) => {
     });
 });
 
-/*
+
 // ======================== //
 // ===    GET / todo    === //
 // ===      ROUTES      === //
 // ======================== //
-app.get('/todo', (request, response) => {
-    console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(request.body)}`);
+app.get('/todos/:id', (request, response) => {
+    var id = request.params.id;
+    // === TEST ID === //
+    if(!ObjectID.isValid(id)){
+      console.log('\n **** ID NOT VALID***** \n');
+      return response.status(404).send();
+    }
+    // === CODE ACTION === //
+    Todo.findById(id).then((todo) => {
+      if (!todo) {
+        return response.status(404).send();
+      }
+      console.log('\n**** API JSON RESPONSE =D *****\n'+`${JSON.stringify(todo, undefined, 2)}`);
+      response.send({todo});
+    }).catch((e) => {
+      response.status(400).send();
+    });
+
 });
 
+/*
 // ======================== //
 // ===   UPDATE / todo  === //
 // ===      ROUTES      === //
