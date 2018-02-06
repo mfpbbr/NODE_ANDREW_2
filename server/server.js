@@ -135,7 +135,7 @@ app.delete('/todos/:id', (request, response) => {
 // ======================== //
 app.patch('/todos/:id', (request, response) => {
   var id = request.params.id;
-  vat body = _.pick(request.body, ['text', 'completed']);
+  var body = _.pick(request.body, ['text', 'completed']);
   // === TEST ID === //
   if(!ObjectID.isValid(id)){
     console.log('\n **** ID NOT VALID***** \n');
